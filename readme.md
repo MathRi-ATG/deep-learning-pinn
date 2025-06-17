@@ -30,17 +30,21 @@ The model is based on the work of Gatenby and Gawlinski and describes the dynami
 The system is described by the following set of **PDEs**:
 
 Normal Cells ($N_n$):
-$$ \boxed{\frac{\partial N*{n}}{\partial t} = r*{n1}N*{n}\left(1-\frac{N*{n}}{K*{n}}\right) - r*{n2}C*{h}N*{n}} $$
- This equation models the logistic growth of normal cells, which is negatively impacted by the concentration of excess H⁺ ions ($C_h$).
+\boxed{\frac{\partial N*n}{\partial t} = r*{n1} N*n \left(1 - \frac{N_n}{K_n}\right) - r*{n2} C_h N_n}
+
+This equation models the logistic growth of normal cells, which is negatively impacted by the concentration of excess H⁺ ions ($C_h$).
 
 Tumor Cells ($N_t$):
-$$ \boxed{\frac{\partial N*{t}}{\partial t} = r*{t1}N*{t}\left(1-\frac{N*{t}}{K*{t}}\right) + \frac{1}{r^{2}}\frac{\partial}{\partial r}\left[r^{2}D(N*{n})\frac{\partial N*{t}}{\partial r}\right]} $$
-The tumor cell diffusivity $D(N*{n})$ depends on the normal cell density:
-$$ \boxed{D(N*{n}) = D*{t}\left(1-\frac{N*{n}}{K*{n}}\right)} $$
+\boxed{\frac{\partial N*t}{\partial t} = r*{t1} N_t \left(1 - \frac{N_t}{K_t}\right) + \frac{1}{r^2} \frac{\partial}{\partial r} \left[ r^2 D(N_n) \frac{\partial N_t}{\partial r} \right]}
+
+The tumor cell diffusivity $D(N_n)$ depends on the normal cell density:
+\boxed{D(N_n) = D_t \left(1 - \frac{N_n}{K_n}\right)}
+
 This equation describes the logistic growth and diffusion of tumor cells. The diffusion is nonlinear because it slows down in areas with more normal cells.
 
 Excess H⁺ Concentration ($C_h$):
-$$ \boxed{\frac{\partial C*{h}}{\partial t} = r*{h1}N*{t} - n*{h2}C*{h} + D*{h}\frac{1}{r^{2}}\frac{\partial}{\partial r}\left(r^{2}\frac{\partial C\_{h}}{\partial r}\right)} $$
+\boxed{\frac{\partial C*h}{\partial t} = r*{h1} N*t - n*{h2} C_h + D_h \frac{1}{r^2} \frac{\partial}{\partial r} \left[ r^2 \frac{\partial C_h}{\partial r} \right]}
+
 This equation models the production of H⁺ ions by tumor cells, its natural clearance, and its diffusion through the tissue.
 
 ## PINN Implementation ⚙️
@@ -68,8 +72,6 @@ The total loss is a weighted sum of four parts:
 - **Epochs**: The model is trained for 10,000 epochs.
 - **Loss Weighting**: We use weights to balance the loss terms (`500` for data, `50` for IC/BC, and `1` for PDE loss).
 - **Automatic Differentiation**: Gradients are computed exactly using TensorFlow's `tf.GradientTape`.
-
----
 
 ## How to Run the Code 🚀
 
