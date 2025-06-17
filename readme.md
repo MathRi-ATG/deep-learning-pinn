@@ -29,27 +29,19 @@ The model is based on the work of Gatenby and Gawlinski and describes the dynami
 
 The system is described by the following set of **PDEs**:
 
-1.  **Normal Cells ($N_n$)**:
+Normal Cells ($N_n$):
+$$ \boxed{\frac{\partial N*{n}}{\partial t} = r*{n1}N*{n}\left(1-\frac{N*{n}}{K*{n}}\right) - r*{n2}C*{h}N*{n}} $$
+ This equation models the logistic growth of normal cells, which is negatively impacted by the concentration of excess H⁺ ions ($C_h$).
 
-    <img src="https://latex.codecogs.com/svg.latex?\frac{\partial&space;N_{n}}{\partial&space;t}&space;=&space;r_{n1}N_{n}(1-\frac{N_{n}}{K_{n}})&space;-&space;r_{n2}C_{h}N_{n}" title="\frac{\partial N_{n}}{\partial t} = r_{n1}N_{n}(1-\frac{N_{n}}{K_{n}}) - r_{n2}C_{h}N_{n}" />
+Tumor Cells ($N_t$):
+$$ \boxed{\frac{\partial N*{t}}{\partial t} = r*{t1}N*{t}\left(1-\frac{N*{t}}{K*{t}}\right) + \frac{1}{r^{2}}\frac{\partial}{\partial r}\left[r^{2}D(N*{n})\frac{\partial N*{t}}{\partial r}\right]} $$
+The tumor cell diffusivity $D(N*{n})$ depends on the normal cell density:
+$$ \boxed{D(N*{n}) = D*{t}\left(1-\frac{N*{n}}{K*{n}}\right)} $$
+This equation describes the logistic growth and diffusion of tumor cells. The diffusion is nonlinear because it slows down in areas with more normal cells.
 
-    This equation models the logistic growth of normal cells, which is negatively impacted by the concentration of excess H+ ions ($C_h$).
-
-2.  **Tumor Cells ($N_t$)**:
-
-    <img src="https://latex.codecogs.com/svg.latex?\frac{\partial&space;N_{t}}{\partial&space;t}&space;=&space;r_{t1}N_{t}(1-\frac{N_{t}}{K_{t}})&space;&plus;&space;\frac{1}{r^{2}}\frac{\partial}{\partial&space;r}\left[r^{2}D(N_{n})\frac{\partial&space;N_{t}}{\partial&space;r}\right]" title="\frac{\partial N_{t}}{\partial t} = r_{t1}N_{t}(1-\frac{N_{t}}{K_{t}}) + \frac{1}{r^{2}}\frac{\partial}{\partial r}\left[r^{2}D(N_{n})\frac{\partial N_{t}}{\partial r}\right]" />
-
-    The tumor cell diffusivity $D(N_{n})$ depends on the normal cell density:
-
-    <img src="https://latex.codecogs.com/svg.latex?D(N_{n})&space;=&space;D_{t}(1-\frac{N_{n}}{K_{n}})" title="D(N_{n}) = D_{t}(1-\frac{N_{n}}{K_{n}})" />
-
-    This equation describes the logistic growth and **diffusion** of tumor cells. The **diffusion** is nonlinear because it slows down in areas with more normal cells.
-
-3.  **Excess H+ Concentration ($C_h$)**:
-
-    <img src="https://latex.codecogs.com/svg.latex?\frac{\partial&space;C_{h}}{\partial&space;t}&space;=&space;r_{h1}N_{t}&space;-&space;n_{h2}C_{h}&space;&plus;&space;D_{h}\frac{1}{r^{2}}\frac{\partial}{\partial&space;r}(r^{2}\frac{\partial&space;C_{h}}{\partial&space;r})" title="\frac{\partial C_{h}}{\partial t} = r_{h1}N_{t} - n_{h2}C_{h} + D_{h}\frac{1}{r^{2}}\frac{\partial}{\partial r}(r^{2}\frac{\partial C_{h}}{\partial r})" />
-
-    This equation models the production of H+ ions by tumor cells, its natural clearance, and its **diffusion** through the tissue.
+Excess H⁺ Concentration ($C_h$):
+$$ \boxed{\frac{\partial C*{h}}{\partial t} = r*{h1}N*{t} - n*{h2}C*{h} + D*{h}\frac{1}{r^{2}}\frac{\partial}{\partial r}\left(r^{2}\frac{\partial C\_{h}}{\partial r}\right)} $$
+This equation models the production of H⁺ ions by tumor cells, its natural clearance, and its diffusion through the tissue.
 
 ## PINN Implementation ⚙️
 
