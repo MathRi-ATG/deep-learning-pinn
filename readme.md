@@ -31,30 +31,23 @@ The system is described by the following set of **PDEs**:
 
 1.  **Normal Cells ($N_n$)**:
 
-    $$
-    \frac{\partial N_{n}}{\partial t} = r_{n1}N_{n}(1-\frac{N_{n}}{K_{n}}) - r_{n2}C_{h}N_{n}
-    $$
+    $$\frac{\partial N_{n}}{\partial t} = r_{n1}N_{n}(1-\frac{N_{n}}{K_{n}}) - r_{n2}C_{h}N_{n}$$
 
     This equation models the logistic growth of normal cells, which is negatively impacted by the concentration of excess H+ ions ($C_h$).
 
-2.  **Tumor Cells ($N_t$)**:
+3.  **Tumor Cells ($N_t$)**:
 
-    $$
-    \frac{\partial N_{t}}{\partial t} = r_{t1}N_{t}(1-\frac{N_{t}}{K_{t}}) + \frac{1}{r^{2}}\frac{\partial}{\partial r}\left[r^{2}D(N_{n})\frac{\partial N_{t}}{\partial r}\right]
-    $$
+    $$\frac{\partial N_{t}}{\partial t} = r_{t1}N_{t}(1-\frac{N_{t}}{K_{t}}) + \frac{1}{r^{2}}\frac{\partial}{\partial r}\left[r^{2}D(N_{n})\frac{\partial N_{t}}{\partial r}\right]$$
 
     The tumor cell diffusivity $D(N_{n})$ depends on the normal cell density:
 
-    $$
-    D(N_{n}) = D_{t}(1-\frac{N_{n}}{K_{n}})
-    $$
+    $$D(N_{n}) = D_{t}(1-\frac{N_{n}}{K_{n}})$$
 
     This equation describes the logistic growth and **diffusion** of tumor cells. The **diffusion** is nonlinear because it slows down in areas with more normal cells.
 
-3.  **Excess H+ Concentration ($C_h$)**:
-    $$
-    \frac{\partial C_{h}}{\partial t} = r_{h1}N_{t} - n_{h2}C_{h} + D_{h}\frac{1}{r^{2}}\frac{\partial}{\partial r}(r^{2}\frac{\partial C_{h}}{\partial r})
-    $$
+4.  **Excess H+ Concentration ($C_h$)**:
+    $$\frac{\partial C_{h}}{\partial t} = r_{h1}N_{t} - n_{h2}C_{h} + D_{h}\frac{1}{r^{2}}\frac{\partial}{\partial r}(r^{2}\frac{\partial C_{h}}{\partial r})$$
+    
     This equation models the production of H+ ions by tumor cells, its natural clearance, and its **diffusion** through the tissue.
 
 ## PINN Implementation ⚙️
