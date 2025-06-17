@@ -29,23 +29,33 @@ The model is based on the work of Gatenby and Gawlinski and describes the dynami
 
 The system is described by the following set of **PDEs**:
 
-Normal Cells ($N_n$):
-\boxed{\frac{\partial N*n}{\partial t} = r*{n1} N*n \left(1 - \frac{N_n}{K_n}\right) - r*{n2} C_h N_n}
+1.  **Normal Cells ($N_n$)**:
 
-This equation models the logistic growth of normal cells, which is negatively impacted by the concentration of excess H⁺ ions ($C_h$).
+    $$
+    \frac{\partial N_{n}}{\partial t} = r_{n1}N_{n}(1-\frac{N_{n}}{K_{n}}) - r_{n2}C_{h}N_{n}
+    $$
 
-Tumor Cells ($N_t$):
-\boxed{\frac{\partial N*t}{\partial t} = r*{t1} N_t \left(1 - \frac{N_t}{K_t}\right) + \frac{1}{r^2} \frac{\partial}{\partial r} \left[ r^2 D(N_n) \frac{\partial N_t}{\partial r} \right]}
+    This equation models the logistic growth of normal cells, which is negatively impacted by the concentration of excess H+ ions ($C_h$).
 
-The tumor cell diffusivity $D(N_n)$ depends on the normal cell density:
-\boxed{D(N_n) = D_t \left(1 - \frac{N_n}{K_n}\right)}
+2.  **Tumor Cells ($N_t$)**:
 
-This equation describes the logistic growth and diffusion of tumor cells. The diffusion is nonlinear because it slows down in areas with more normal cells.
+    $$
+    \frac{\partial N_{t}}{\partial t} = r_{t1}N_{t}(1-\frac{N_{t}}{K_{t}}) + \frac{1}{r^{2}}\frac{\partial}{\partial r}\left[r^{2}D(N_{n})\frac{\partial N_{t}}{\partial r}\right]
+    $$
 
-Excess H⁺ Concentration ($C_h$):
-\boxed{\frac{\partial C*h}{\partial t} = r*{h1} N*t - n*{h2} C_h + D_h \frac{1}{r^2} \frac{\partial}{\partial r} \left[ r^2 \frac{\partial C_h}{\partial r} \right]}
+    The tumor cell diffusivity $D(N_{n})$ depends on the normal cell density:
 
-This equation models the production of H⁺ ions by tumor cells, its natural clearance, and its diffusion through the tissue.
+    $$
+    D(N_{n}) = D_{t}(1-\frac{N_{n}}{K_{n}})
+    $$
+
+    This equation describes the logistic growth and **diffusion** of tumor cells. The **diffusion** is nonlinear because it slows down in areas with more normal cells.
+
+3.  **Excess H+ Concentration ($C_h$)**:
+    $$
+    \frac{\partial C_{h}}{\partial t} = r_{h1}N_{t} - n_{h2}C_{h} + D_{h}\frac{1}{r^{2}}\frac{\partial}{\partial r}(r^{2}\frac{\partial C_{h}}{\partial r})
+    $$
+    This equation models the production of H+ ions by tumor cells, its natural clearance, and its **diffusion** through the tissue.
 
 ## PINN Implementation ⚙️
 
@@ -72,6 +82,8 @@ The total loss is a weighted sum of four parts:
 - **Epochs**: The model is trained for 10,000 epochs.
 - **Loss Weighting**: We use weights to balance the loss terms (`500` for data, `50` for IC/BC, and `1` for PDE loss).
 - **Automatic Differentiation**: Gradients are computed exactly using TensorFlow's `tf.GradientTape`.
+
+---
 
 ## How to Run the Code 🚀
 
