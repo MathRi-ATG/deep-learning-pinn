@@ -79,37 +79,6 @@ The total loss is a weighted sum of four parts:
 
 ---
 
-## How to Run the Code 🚀
-
-The Python script is self-contained. It first generates a "ground truth" dataset using a traditional numerical solver, adds noise to simulate experimental data, and then trains the **PINN** on this noisy data.
-
-### Prerequisites
-
-You'll need Python 3 and these libraries:
-
-```
-
-numpy
-scipy
-matplotlib
-tensorflow
-
-```
-
-You can install them using pip:
-
-```bash
-pip install numpy scipy matplotlib tensorflow
-```
-
-### Execution
-
-To run the entire pipeline, just run the script from your terminal:
-
-```bash
-python main.py
-```
-
 ### Expected Output
 
 The script will:
